@@ -2,6 +2,7 @@ package com.Controllers;
 
 import com.Converters.StudentToStudentDTOConverter;
 import com.Models.Student;
+import com.Validators.MyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -27,13 +28,13 @@ public class Controller {
 //    @Autowired
 //    StudentRepository repository;
 
-//    @GetMapping("/{id}")
+    @GetMapping("/{id}")
     @RequestMapping(method = RequestMethod.GET, consumes = "application/json", path = "/{id}")
     public String sayHello(@PathVariable("id") int studentId){
         return students.get(studentId).toString();
     }
 
-    @PostMapping("/")
+    @PostMapping("/validation")
     public ResponseEntity<String> addStudent(@Valid @RequestBody Student student, BindingResult errors){
         if (errors.hasErrors()){
             return new ResponseEntity<>(errors.getAllErrors().stream()
@@ -42,6 +43,8 @@ public class Controller {
                     .toString(),HttpStatus.OK);
         }
         return new ResponseEntity<>("Всё ок", HttpStatus.OK);
+        // ручная вроде бы должна выглядеть так:
+        //new MyValidator().validate(student, errors);
     }
 
 //    @GetMapping("/")

@@ -1,9 +1,17 @@
 package com.Models;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 public class Student {
-    @Min(5)
+
+    @Min(value = 2, message = "id error!!!!!!!!!!!!!!")
     private int id;
+    @Size(min = 2, message = "name error!!!!!!!!!!!!!!!!")
+    @JsonProperty(value = "nm")
     private String name;
 
     @Override
